@@ -7,6 +7,12 @@
   pointer-events: none;
 }
 
+.App-image {
+  height: 100%;
+  width: 100%;
+  background-image: url("/Users/markdaddy/bloomtechprojects/repos/web-sprint-challenge-single-page-applications/Assets/Pizza.jpg");
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -15,7 +21,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
