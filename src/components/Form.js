@@ -1,13 +1,36 @@
 import React, { useState } from "react";
 import * as Yup from 'yup';
 
-
+const formSchema = Yup.object().shape({
+    name: Yup
+        .string()
+        .required("Must include a name!")
+        .min(2, "name must be at least 2 characters"),
+    size: Yup
+        .number()
+        .required("Size is Required")
+        .oneOf([1,2,3,4], "Must select a valid size"),
+    special: Yup
+        .string(),
+    pepperoni: Yup
+        .boolean(),
+    pineapple: Yup
+        .boolean(),
+    sausage: Yup
+        .boolean(),
+    steak: Yup
+        .boolean(),
+    bacon: Yup
+        .boolean(),
+    mushrooms: Yup
+        .boolean()
+})
 
 function Form () {
 
 const [formValues, setFormValues] = useState({ 
     name: "", 
-    size: null, 
+    size: undefined, 
     pepperoni: false, 
     sausage: false, 
     pineapple: false, 
@@ -26,12 +49,29 @@ const [errors, setErrors] = useState({
     steak: "", 
     bacon: "", 
     mushrooms: "", 
-    special: "" 
+    special: "",
   });
+
+const setFormErrors = (name, value) => {
+    Yup
+    .reach(formSchema, name)
+    .validate(value)
+    .then(() => {
+      setErrors({
+        ...errors, [name]: ""
+      });
+    })
+    .catch(err => {
+      setErrors({
+        ...errors, [name]: err.errors[0]
+      });
+    });
+}
 
 const handleChange = event => {
     const { name, type, checked, value } = event.target;
     const updatedInfo = type === 'checkbox' ? checked : value;
+    setFormErrors(name, updatedInfo);
     setFormValues({...formValues, [name]: updatedInfo});
 } 
 
@@ -41,6 +81,7 @@ const handleChange = event => {
             <h3>Order Fresh Pizza - Ready in Minutes!</h3>
             <form id="pizza-form">
                 <label>Name: <input onChange={handleChange} name="name" type="text" value={formValues.name} id="name-input"></input></label>
+                <div>{errors.name}</div>
                 <div className="sizes">
                     <h3>Choose Your Pizza Size:</h3>
 

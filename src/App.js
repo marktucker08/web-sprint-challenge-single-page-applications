@@ -8,7 +8,7 @@ function Home(props) {
   <>
   <div className="App-image">
     <h3>Hungry, Hungry Coders</h3>
-    <Link to="/pizza" id="order-pizza"><button id="order-pizza">Order Now!</button></Link>
+    <Link to="/pizza"><button id="order-pizza">Order Now!</button></Link>
   </div>
   </>
   )
@@ -22,7 +22,7 @@ const App = () => {
       <h1>Bloomtech Eats</h1>
       <nav className="App-link">
         <Link to="/" id="home"><button>Home</button></Link>
-        <Link to="/pizza" id="order-pizza"><button>Order</button></Link>
+        <Link to="/pizza"><button>Order</button></Link>
       </nav>
     
     
