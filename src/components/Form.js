@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as Yup from 'yup';
+import axios from "axios";
 
 const formSchema = Yup.object().shape({
     name: Yup
@@ -25,6 +26,19 @@ const formSchema = Yup.object().shape({
     mushrooms: Yup
         .boolean()
 })
+
+function confirmPage (props) {
+
+    return (
+        <>
+        <div className="confirmation-page">
+            <h3>Thanks for your order, {props.name}</h3>
+            <p>Your order: A {props.size} pizza.</p>
+        </div>
+        </>
+    )
+
+} 
 
 function Form () {
 
@@ -77,21 +91,24 @@ const handleChange = event => {
     setFormValues({...formValues, [name]: updatedInfo});
 } 
 
-// const formSubmit = event => {
-//     event.preventDefault();
-//     axios
-//         .post("https://reqres.in/api/users", formValues)
-//         .then(res => {
-//             console.log(res.data);
-//         })
-//         .catch(err => console.log(err.response));
-// }
+const [post, setPost] = useState([]);
+
+const formSubmit = event => {
+    event.preventDefault();
+    axios
+        .post("https://reqres.in/api/users", formValues)
+        .then(res => {
+            setPost(res.data);
+            console.log("success!", res);
+        })
+        .catch(err => console.log(err.response));
+}
 
     return ( 
         <>
         <div className="form">
             <h3>Order Fresh Pizza - Ready in Minutes!</h3>
-            <form id="pizza-form">
+            <form onSubmit={formSubmit} id="pizza-form">
                 <label>Name: <input onChange={handleChange} name="name" type="text" value={formValues.name} id="name-input"></input></label>
                 <div>{errors.name}</div>
                 <div className="sizes">
@@ -119,7 +136,7 @@ const handleChange = event => {
                     <label>Special Instructions: <input onChange={handleChange} type="text" name="special" value={formValues.special} id="special-text" />
                     </label>
                 </div>
-                <button id="order-button">Place Order!</button>
+                <button id="order-button" >Place Order!</button>
             </form>
         </div>
         </>
