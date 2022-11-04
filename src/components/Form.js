@@ -52,6 +52,8 @@ const [errors, setErrors] = useState({
     special: "",
   });
 
+
+
 const setFormErrors = (name, value) => {
     Yup
     .reach(formSchema, name)
@@ -74,6 +76,16 @@ const handleChange = event => {
     setFormErrors(name, updatedInfo);
     setFormValues({...formValues, [name]: updatedInfo});
 } 
+
+// const formSubmit = event => {
+//     event.preventDefault();
+//     axios
+//         .post("https://reqres.in/api/users", formValues)
+//         .then(res => {
+//             console.log(res.data);
+//         })
+//         .catch(err => console.log(err.response));
+// }
 
     return ( 
         <>

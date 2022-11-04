@@ -4,11 +4,13 @@ import "./App.css";
 import Form from "./components/Form";
 
 function Home(props) {
+  const { push } = props.history;
+
   return (
   <>
   <div className="App-image">
     <h3>Hungry, Hungry Coders</h3>
-    <Link to="/pizza"><button id="order-pizza">Order Now!</button></Link>
+    <button id="order-pizza" onClick={() => push("/pizza")}>Order Now!</button>
   </div>
   </>
   )
@@ -18,7 +20,6 @@ const App = () => {
   return (
     <div className="App">
     <header className="App-header">
-      <BrowserRouter>
       <h1>Bloomtech Eats</h1>
       <nav className="App-link">
         <Link to="/" id="home"><button>Home</button></Link>
@@ -28,7 +29,6 @@ const App = () => {
     
       <Route exact path="/" component={Home} />
       <Route path="/pizza" component={Form} /> 
-      </BrowserRouter>
     </header>
     </div>
   );
